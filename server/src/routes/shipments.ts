@@ -249,7 +249,7 @@ router.put('/:id', validateUUID, asyncHandler(async (req: AuthenticatedRequest, 
 
 /**
  * DELETE /api/shipments/:id
- * Delete a shipment
+ * Purpose to delete a shipment
  */
 router.delete('/:id', validateUUID, asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
   const { id } = req.params;
