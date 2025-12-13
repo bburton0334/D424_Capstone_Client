@@ -188,8 +188,8 @@ server/
 
 1. **Test Execution** - Terminal showing all 130 tests passing
 
-![Test Execution](screenshots/execution1.jpg)
-![Test Execution](screenshots/execution2.jpg)
+![Test Execution](./screenshots/execution1.jpg)
+![Test Execution](./screenshots/execution2.jpg)
 
 2. **Coverage Report** - Coverage table showing percentage coverage
 
