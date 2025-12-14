@@ -63,7 +63,7 @@ export class OpenSkyService {
 
       return response.data.states
         .filter(state => state[5] !== null && state[6] !== null && !state[8]) // Filter out grounded aircraft
-        .slice(0, 500) // Limit results for performance
+        .slice(0, 2000) // Increased limit for more flight options
         .map(state => Flight.fromOpenSkyData(state));
     } catch (error) {
       console.error('OpenSky API error:', error);

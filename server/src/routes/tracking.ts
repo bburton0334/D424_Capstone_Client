@@ -86,7 +86,7 @@ router.get('/available-flights', requireAuth, asyncHandler(async (_req: Authenti
   // Filter to only show airborne aircraft with callsigns
   const availableFlights = flights
     .filter(flight => !flight.isOnGround() && flight.getCallsign())
-    .slice(0, 100) // Limit for performance
+    .slice(0, 500) // Increased limit for more flight options
     .map(flight => flight.toJSON());
 
   res.json({
