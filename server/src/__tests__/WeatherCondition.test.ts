@@ -378,3 +378,4 @@ describe('WeatherCondition Classes', () => {
   });
 });
 
+

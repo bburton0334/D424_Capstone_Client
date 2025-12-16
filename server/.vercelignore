@@ -1,0 +1,13 @@
+# Dependencies
+node_modules
+
+# Test files
+**/__tests__
+**/*.test.ts
+coverage
+jest.config.js
+
+# Development
+*.log
+.env.local
+

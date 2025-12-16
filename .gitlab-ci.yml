@@ -1,12 +1,15 @@
-# GitLab CI/CD Pipeline - Builds and pushes client Docker image to GitLab Container Registry
+# GitLab CI/CD Pipeline
+# - Builds client Docker image → GitLab Container Registry → Railway
+# - Deploys server → Vercel
 
 stages:
   - build
+  - deploy
 
 variables:
-  # Image will be: registry.gitlab.com/your-username/your-repo/client:latest
   CLIENT_IMAGE: $CI_REGISTRY_IMAGE/client
 
+# Build client Docker image for Railway
 build-client:
   stage: build
   image: docker:24
@@ -19,6 +22,22 @@ build-client:
     - docker build -t $CLIENT_IMAGE:latest -t $CLIENT_IMAGE:$CI_COMMIT_SHORT_SHA .
     - docker push $CLIENT_IMAGE:latest
     - docker push $CLIENT_IMAGE:$CI_COMMIT_SHORT_SHA
+  only:
+    - main
+    - master
+
+# Deploy server to Vercel
+deploy-server:
+  stage: deploy
+  image: node:20-alpine
+  before_script:
+    - npm install -g vercel
+  script:
+    - cd server
+    # Vercel CLI reads VERCEL_ORG_ID and VERCEL_PROJECT_ID from environment
+    - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+    - vercel build --prod --token=$VERCEL_TOKEN
+    - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
   only:
     - main
     - master
