@@ -3,6 +3,10 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
+# Build argument for API URL (set during docker build)
+ARG VITE_API_URL=https://freight-tracker-server.vercel.app
+ENV VITE_API_URL=$VITE_API_URL
+
 # Copy package files
 COPY package*.json ./
 
@@ -12,7 +16,7 @@ RUN npm ci
 # Copy source code
 COPY . .
 
-# Build the app
+# Build the app (VITE_API_URL is baked in here)
 RUN npm run build
 
 # Production stage - serve with nginx
