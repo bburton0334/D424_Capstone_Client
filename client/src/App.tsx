@@ -29,6 +29,11 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Clean up Supabase auth errors from URL hash (email confirmation redirects)
+    // These errors are often misleading - the confirmation usually succeeds
+    if (window.location.hash.includes('error=')) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
     checkAuth();
   }, []);
 
