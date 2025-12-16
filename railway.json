@@ -9,7 +9,7 @@
           "cmds": ["cd client && npm install"]
         },
         "build": {
-          "cmds": ["cd client && npm run build"]
+          "cmds": ["cd client && VITE_API_URL=https://freight-tracker-server.vercel.app/api npm run build"]
         }
       }
     }
