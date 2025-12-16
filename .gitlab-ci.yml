@@ -1,0 +1,25 @@
+# GitLab CI/CD Pipeline - Builds and pushes client Docker image to GitLab Container Registry
+
+stages:
+  - build
+
+variables:
+  # Image will be: registry.gitlab.com/your-username/your-repo/client:latest
+  CLIENT_IMAGE: $CI_REGISTRY_IMAGE/client
+
+build-client:
+  stage: build
+  image: docker:24
+  services:
+    - docker:24-dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - cd client
+    - docker build -t $CLIENT_IMAGE:latest -t $CLIENT_IMAGE:$CI_COMMIT_SHORT_SHA .
+    - docker push $CLIENT_IMAGE:latest
+    - docker push $CLIENT_IMAGE:$CI_COMMIT_SHORT_SHA
+  only:
+    - main
+    - master
+
