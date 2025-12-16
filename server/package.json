@@ -1,7 +1,6 @@
 {
   "name": "freight-tracker-server",
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "start": "tsx src/server.ts",
